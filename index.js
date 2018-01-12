@@ -2,6 +2,8 @@ const path = require('path');
 const fs = require('fs');
 const minify = require('html-minifier').minify;
 const argv = require('yargs').argv;
+const chokidar = require('chokidar');
+const colors = require('colors');
 
 JSON.minify = require('node-json-minify');
 
@@ -25,5 +27,19 @@ function generateInset(){
 }
 
 if (argv.build) {
-  generateInset().then(() => console.log('build complete'));
+  console.log(colors.blue('Preparing build'));
+  generateInset().then(() => console.log(colors.green('Build complete')));
+}
+
+if (argv.watch) {
+  const watcher = chokidar.watch(['inset/'], {
+    ignored: /[\/\\]\./, persistent: true
+  });
+
+  watcher
+    .on('add', (path) => console.log(colors.blue(`File ${path} has been added`)))
+    .on('ready', () => console.log(colors.blue('Watching for changes.')))
+    .on('change', (path) => {
+      generateInset().then(() => console.log(colors.green('Rebuild complete')));
+    });
 }

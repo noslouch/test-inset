@@ -4,12 +4,15 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
+    "watch": "node index.js --watch",
     "build": "node index.js --build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chokidar": "^2.0.0",
+    "colors": "^1.1.2",
     "html-minifier": "^3.5.8",
     "node-json-minify": "^1.0.0",
     "yargs": "^10.1.1"

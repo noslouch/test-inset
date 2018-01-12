@@ -13,7 +13,10 @@ $ npm install
 
 ## Usage
 ```sh
-# Build inset
+# watch inset src
+$ npm run watch
+
+# one time build inset
 $ npm run build
 ```
 - `src/` compiles to `dist/*`
