@@ -13,15 +13,17 @@ $ npm install
 
 ## Usage
 ```sh
-# Build inset, css and js
+# Build inset
 $ npm run build
 ```
 - `src/` compiles to `dist/*`
-- `inset/` compiles to `inset.json`
+- `inset/` compiles to `dist/inset.json`
 
 ### Deployment
 
-## Example
+## Examples
+- `http://127.0.0.1:3000/index-article.html`
+- `http://127.0.0.1:3000/index-immersive.html`
 
 ## Contact
 Need Assistance? Email [tools@wsj.com](mailto:tools@wsj.com).

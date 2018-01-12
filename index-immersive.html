@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+	<link rel="stylesheet" href="https://www.wsj.com/fonts/retina.css" />
+	<link rel="stylesheet" href="https://www.wsj.com/fonts/exchange.css" />
+	<link rel="stylesheet" href="https://www.wsj.com/fonts/escrow.css" />
+
+	<style>
+		body {
+			margin: 0 10px;
+		}
+	</style>
+
+</head>
+<body>
+	<div class="wrapper">
+		<h1>This will be the Immersive preview page.</h1>
+		<div id="dynamic-inset"></div>
+	</div>
+  <script src="./libs/jquery.min.js"></script>
+  <script src="./libs/mustache.min.js"></script>
+  <script src="./libs/wsj-inset.js"></script>
+	<script>
+		$.getJSON('./dist/inset.json', function(json){
+			$('#dynamic-inset').wsjInset(json);
+		});
+	</script>
+	</body>
+</html>
