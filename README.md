@@ -13,7 +13,7 @@ $ npm install
 
 ## Usage
 ```sh
-# watch inset src
+# watch for inset changes
 $ npm run watch
 
 # one time build inset

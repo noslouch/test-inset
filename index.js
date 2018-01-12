@@ -39,7 +39,7 @@ if (argv.watch) {
   watcher
     .on('add', (path) => console.log(colors.blue(`File ${path} has been added`)))
     .on('ready', () => console.log(colors.blue('Watching for changes.')))
-    .on('change', (path) => {
+    .on('change', () => {
       generateInset().then(() => console.log(colors.green('Rebuild complete')));
     });
 }
