@@ -7,12 +7,28 @@
 	<link rel="stylesheet" href="https://www.wsj.com/fonts/retina.css" />
 	<link rel="stylesheet" href="https://www.wsj.com/fonts/exchange.css" />
 	<link rel="stylesheet" href="https://www.wsj.com/fonts/escrow.css" />
+
 	<link rel="stylesheet" href="https://asset.wsj.net/public/2f993f3ff0325dae763b/wsj_core_css.css">
 	<link rel="stylesheet" href="https://asset.wsj.net/public/2f993f3ff0325dae763b/wsj_extra_css.css">
+
+	<link href="https://fonts.googleapis.com/css?family=Titillium+Web:600" rel="stylesheet">
 	<link rel="stylesheet" href="./css/style.css">
 
 </head>
 <body>
+	<header class="product-header">
+	  <h2 class="product-header__name">Dynamic Inset Previewer</h2>
+		<div class="inset-layout-selection">
+			<label>Select inset layout:</label>
+			<select class="inset-select">
+				<option value="inline" selected>Inline</option>
+				<option value="wrap">Wrap</option>
+				<option value="margin">Margin</option>
+				<option value="offset">Offset</option>
+				<option value="bleed">Bleed</option>
+			</select>
+		</div>
+	</header>
 	<div class="sector" id="article_sector">
 	   <article class="column at8-col8 at12-col11 at16-col15" id="article-contents" maincontentofpage="">
 	      <header class="article_header module">
@@ -31,7 +47,6 @@
 	               <h2 class="sub-head" itemprop="description">A few technology giants dominate their worlds just as Standard Oil and AT&amp;T once did. Should they be broken up?</h2>
 	            </div>
 	         </div>
-	         <!-- data-module-name="article.app/lib/module/articleHeadline" -->
 	      </header>
 	      <div class="column at8-col8 at12-col7 at16-col9 at16-offset1">
 	         <div class="module">
@@ -90,8 +105,6 @@
 	                        <a href="http://quotes.wsj.com/T">AT&amp;T</a>
 	                        once were. Their alleged sins run the gamut from disseminating fake news and fostering addiction to laying waste to small towns’ shopping districts. But antitrust regulators have a narrow test: Does their size leave consumers worse off?
 	                     </p>
-	                     <p>By that standard, there isn’t a clear case for going after big tech—at least for now. They are driving down prices and rolling out new and often improved products and services every week. </p>
-	                     <p>That may not be true in the future: if market dominance means fewer competitors and less innovation, consumers will be worse off than if those companies had been restrained. “The impact on innovation can be the most important competitive effect” in an antitrust case, says Fiona Scott Morton, a Yale University economist who served in the Justice Department’s antitrust division under Barack Obama.</p>
 											 <div data-layout="inline
 	                        " data-layout-mobile="" class="media-object
 	                        inline
@@ -99,6 +112,8 @@
 	                        inline">
 	                        <div id="dynamic-inset"></div>
 	                     </div>
+	                     <p>By that standard, there isn’t a clear case for going after big tech—at least for now. They are driving down prices and rolling out new and often improved products and services every week. </p>
+	                     <p>That may not be true in the future: if market dominance means fewer competitors and less innovation, consumers will be worse off than if those companies had been restrained. “The impact on innovation can be the most important competitive effect” in an antitrust case, says Fiona Scott Morton, a Yale University economist who served in the Justice Department’s antitrust division under Barack Obama.</p>
 	                     <p>Google which has spent the past eight years in the sights of European and American antitrust authorities, is hardly a price gouger. Most of its products are free to consumers and the price advertisers pay Google per click has fallen by a third the past three years. The company remains an innovation powerhouse, investing in new products such as its voice-activated assistant Google Home.</p>
 	                     <p>Yet Google’s monopoly means some features and prices that competitors offered never made it in front of customers.
 	                        <a href="http://quotes.wsj.com/YELP">Yelp</a>
@@ -123,6 +138,16 @@
 	         </div>
 	      </div>
 	   </article>
+	</div>
+
+	<div class="inset-layout-selection">
+		<select>
+			<option value="inline">Inline</option>
+			<option value="wrap">Wrap</option>
+			<option value="margin">Margin</option>
+			<option value="offset">Offset</option>
+			<option value="bleed">Bleed</option>
+		</select>
 	</div>
 
   <script src="./libs/jquery.min.js"></script>
