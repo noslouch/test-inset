@@ -1,0 +1,16 @@
+.column {
+  float: none;
+  margin: 0 auto;
+}
+
+@media (min-width: 1301px) {
+  .column {
+    width: 720px;
+  }
+}
+
+@media (max-width: 1300px) and (min-width: 981px) {
+  .column {
+    width: 560px;
+  }
+}
