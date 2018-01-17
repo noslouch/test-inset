@@ -10,6 +10,7 @@
     "build:production": "npm run build:inset:production && npm run build:app:production",
     "build:inset:production": "node index.js --buildInset --production",
     "build:app:production": "NODE_ENV=production webpack -p",
+    "build:index": "gulp --gulpfile index.js fileinclude",
     "deploy": "npm run clean && npm run build:production && node index.js --deploy",
     "clean": "rm -rf ./dist/*"
   },
@@ -31,6 +32,8 @@
     "babel-preset-env": "^1.6.1",
     "css-loader": "^0.28.8",
     "extract-text-webpack-plugin": "^3.0.2",
+    "gulp": "^3.9.1",
+    "gulp-file-include": "^2.0.1",
     "node-sass": "^4.7.2",
     "postcss-loader": "^2.0.10",
     "sass-loader": "^6.0.6",

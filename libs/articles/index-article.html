@@ -1,42 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
-	<link rel="stylesheet" href="https://www.wsj.com/fonts/retina.css" />
-	<link rel="stylesheet" href="https://www.wsj.com/fonts/exchange.css" />
-	<link rel="stylesheet" href="https://www.wsj.com/fonts/escrow.css" />
-
-	<link rel="stylesheet" href="https://asset.wsj.net/public/2f993f3ff0325dae763b/wsj_core_css.css">
-	<link rel="stylesheet" href="https://asset.wsj.net/public/2f993f3ff0325dae763b/wsj_extra_css.css">
-
-	<link href="https://fonts.googleapis.com/css?family=Titillium+Web:600" rel="stylesheet">
-	<link rel="stylesheet" href="./libs/css/style.css">
-
-</head>
-
+@@include('../includes/article-top.html')
 <body class="standard">
-	<header class="product-header">
-	  <h2 class="product-header__name">Dynamic Inset Previewer</h2>
-	  <div class="inset-layout-selection">
-	    <a href="/index-article.html">
-	      <button class="btn btn--primary">Standard</button>
-	    </a>
-	    <a href="/index-immersive.html">
-	      <button class="btn btn--primary">Immersive</button>
-	    </a>
-	    <label>Select inset layout:</label>
-	    <select class="inset-select">
-	      <option value="inline" selected>Inline</option>
-	      <option value="wrap">Wrap</option>
-	      <option value="margin">Margin</option>
-	      <option value="offset">Offset</option>
-	      <option value="bleed">Bleed</option>
-	    </select>
-	  </div>
-	</header>
-
+	@@include('../includes/header.html')
 	<div class="sector" id="article_sector">
 	   <article class="column at8-col8 at12-col11 at16-col15" id="article-contents" maincontentofpage="">
 	      <header class="article_header module">
@@ -144,15 +108,4 @@
 	   </article>
 	</div>
 
-  <script src="./libs/jquery.min.js"></script>
-  <script src="./libs/mustache.min.js"></script>
-  <script src="./libs/wsj-inset.js"></script>
-  <script src="./libs/js/index.js"></script>
-  <script>
-    $.getJSON('./dist/inset.json', function(json){
-      $('#dynamic-inset').wsjInset(json);
-    });
-  </script>
-  </body>
-</html>
-
+@@include('../includes/article-bottom.html')

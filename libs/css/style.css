@@ -60,3 +60,36 @@
 #article_sector {
   margin-top: 100px;
 }
+
+.btn {
+  border-radius: 0;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  outline: 0;
+  margin-right: 15px;
+  padding: 4px 15px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: all .15s ease-in-out;
+}
+
+.product-header .btn--primary {
+  background: #67b6e4;
+  border: 2px solid #fff;
+  box-shadow: none;
+  color: #fff;
+  margin-top: 1px;
+  height: 31px;
+}
+
+body.standard .inset-layout-selection a:first-of-type {
+  display: none;
+}
+
+body.immersive .inset-layout-selection a:last-of-type {
+  display: none;
+}

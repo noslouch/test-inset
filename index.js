@@ -6,6 +6,9 @@ const chokidar = require('chokidar');
 const colors = require('colors');
 const request = require('superagent');
 const prettyjson = require('prettyjson');
+const fileinclude = require('gulp-file-include');
+const gulp = require('gulp');
+
 const CONFIG = require('./src/config.json');
 
 JSON.minify = require('node-json-minify');
@@ -79,3 +82,13 @@ if (argv.deploy) {
 
   console.log(colors.blue('Deployment completed.'));
 }
+
+gulp.task('fileinclude', () => {
+  gulp.src(['./libs/articles/index-article.html', './libs/articles/index-immersive.html'])
+    .pipe(fileinclude({
+      prefix: '@@',
+      basepath: '@file',
+      indent: true
+    }))
+    .pipe(gulp.dest('./'));
+});
