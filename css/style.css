@@ -31,9 +31,11 @@
   font-family: 'Titillium Web', sans-serif;
   height: 50px;
   justify-content: space-between;
-  margin-bottom: 50px;
   padding: 10px 20px;
-  position: relative;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 11;
 }
 
 .product-header__name {
@@ -53,4 +55,8 @@
 .inset-layout-selection label {
   font-size: 16px;
   padding-right: 5px;
+}
+
+#article_sector {
+  margin-top: 100px;
 }
