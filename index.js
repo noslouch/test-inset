@@ -39,7 +39,6 @@ if (argv.buildInset) {
   generateInset(argv.production).then(() => console.log(colors.green('Inset build complete.')));
 }
 
-// initial generateInset
 if (argv.watch) {
   const watcher = chokidar.watch(['inset/'], {
     ignored: /[\/\\]\./, persistent: true
@@ -47,7 +46,12 @@ if (argv.watch) {
 
   watcher
     .on('add', (path) => console.log(colors.blue(`File ${path} has been added.`)))
-    .on('ready', () => console.log(colors.blue('Watching for changes.')))
+    .on('ready', () => {
+      generateInset().then(() => {
+        console.log(colors.green('Initial build complete.'))
+        console.log(colors.blue('Watching for changes.'))
+      });
+    })
     .on('change', () => {
       generateInset().then(() => console.log(colors.green('Rebuild complete.')));
     });
