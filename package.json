@@ -9,7 +9,8 @@
     "watch:app": "webpack --watch --progress --colors",
     "build": "npm run build:inset && npm run build:app",
     "build:inset": "node index.js --build",
-    "build:app": "NODE_ENV=production webpack -p"
+    "build:app": "NODE_ENV=production webpack -p",
+    "build:index": "gulp --gulpfile index.js fileinclude"
   },
   "keywords": [],
   "author": "",
@@ -28,6 +29,8 @@
     "babel-preset-env": "^1.6.1",
     "css-loader": "^0.28.8",
     "extract-text-webpack-plugin": "^3.0.2",
+    "gulp": "^3.9.1",
+    "gulp-file-include": "^2.0.1",
     "node-sass": "^4.7.2",
     "postcss-loader": "^2.0.10",
     "sass-loader": "^6.0.6",

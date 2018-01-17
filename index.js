@@ -4,6 +4,8 @@ const minify = require('html-minifier').minify;
 const argv = require('yargs').argv;
 const chokidar = require('chokidar');
 const colors = require('colors');
+const fileinclude = require('gulp-file-include');
+const gulp = require('gulp');
 
 JSON.minify = require('node-json-minify');
 
@@ -43,3 +45,13 @@ if (argv.watch) {
       generateInset().then(() => console.log(colors.green('Rebuild complete')));
     });
 }
+
+gulp.task('fileinclude', () => {
+  gulp.src(['./libs/articles/index-article.html', './libs/articles/index-immersive.html'])
+    .pipe(fileinclude({
+      prefix: '@@',
+      basepath: '@file',
+      indent: true
+    }))
+    .pipe(gulp.dest('./'));
+});
