@@ -1,0 +1,62 @@
+.column {
+  float: none;
+  margin: 0 auto;
+}
+
+@media (min-width: 1301px) {
+  .column {
+    width: 720px;
+  }
+}
+
+@media (max-width: 1300px) and (min-width: 981px) {
+  .column {
+    width: 560px;
+  }
+}
+
+.product-header {
+  -ms-flex-align: center;
+  -ms-flex-pack: justify;
+  -webkit-box-align: center;
+  -webkit-box-pack: justify;
+  -webkit-font-smoothing: antialiased;
+  align-items: center;
+  background-color: #67b6e4;
+  box-sizing: border-box;
+  color: #fff;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: flex;
+  font-family: 'Titillium Web', sans-serif;
+  height: 50px;
+  justify-content: space-between;
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 11;
+}
+
+.product-header__name {
+  color: #fff;
+  font-size: 18px;
+  letter-spacing: .75px;
+  line-height: 22px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.inset-layout-selection {
+  align-items: baseline;
+  display: flex;
+}
+
+.inset-layout-selection label {
+  font-size: 16px;
+  padding-right: 5px;
+}
+
+#article_sector {
+  margin-top: 100px;
+}
