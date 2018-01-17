@@ -4,14 +4,15 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "watch": "npm run watch:inset & npm run watch:app",
+    "watch": "npm run clean && npm run watch:inset & npm run watch:app",
     "watch:inset": "node index.js --watch",
     "watch:app": "webpack --watch --progress --colors",
-    "build": "npm run build:inset && npm run build:app",
-    "build:inset": "node index.js --build",
-    "build:app": "NODE_ENV=production webpack -p"
+    "build:production": "npm run build:inset:production && npm run build:app:production",
+    "build:inset:production": "node index.js --buildInset --production",
+    "build:app:production": "NODE_ENV=production webpack -p",
+    "deploy": "npm run clean && npm run build:production && node index.js --deploy",
+    "clean": "rm -rf ./dist/*"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -19,6 +20,8 @@
     "colors": "^1.1.2",
     "html-minifier": "^3.5.8",
     "node-json-minify": "^1.0.0",
+    "prettyjson": "^1.2.1",
+    "superagent": "^3.8.2",
     "yargs": "^10.1.1"
   },
   "devDependencies": {

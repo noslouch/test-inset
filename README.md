@@ -18,6 +18,9 @@ $ npm run watch
 
 # one time build inset
 $ npm run build
+
+# build and deploy
+$ npm run deploy
 ```
 - `src/` compiles to `dist/*`
 - `inset/` compiles to `dist/inset.json`
