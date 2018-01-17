@@ -4,8 +4,12 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "watch": "node index.js --watch",
-    "build": "node index.js --build"
+    "watch": "npm run watch:inset & npm run watch:app",
+    "watch:inset": "node index.js --watch",
+    "watch:app": "webpack --watch --progress --colors",
+    "build": "npm run build:inset && npm run build:app",
+    "build:inset": "node index.js --build",
+    "build:app": "NODE_ENV=production webpack -p"
   },
   "keywords": [],
   "author": "",
@@ -16,5 +20,18 @@
     "html-minifier": "^3.5.8",
     "node-json-minify": "^1.0.0",
     "yargs": "^10.1.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "css-loader": "^0.28.8",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "node-sass": "^4.7.2",
+    "postcss-loader": "^2.0.10",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.19.1",
+    "webpack": "^3.10.0"
   }
 }
