@@ -87,7 +87,7 @@ if (argv.deploy) {
   console.log(colors.blue('Deployment completed.'));
 }
 
-gulp.task('buildIndex', () => {
+gulp.task('buildArticle', () => {
   gulp.src(['./libs/articles/article-standard.html', './libs/articles/article-immersive.html'])
     .pipe(fileinclude({
       prefix: '@@',

@@ -1,3 +1,17 @@
-body {
-  color: red;
+.example-headline,
+.example-description {
+  font-family: 'Titillium Web', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color: #67b6e4;
+}
+
+.example-headline {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.example-description {
+  font-size: 16px;
+  font-weight: 400;
 }

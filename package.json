@@ -10,7 +10,7 @@
     "build:production": "npm run build:inset:production && npm run build:app:production",
     "build:inset:production": "node index.js --buildInset --production",
     "build:app:production": "NODE_ENV=production webpack -p",
-    "build:index": "gulp --gulpfile index.js buildIndex",
+    "build:article": "gulp --gulpfile index.js buildArticle",
     "deploy": "npm run clean && npm run build:production && node index.js --deploy",
     "clean": "rm -rf ./dist/*"
   },
