@@ -84,7 +84,7 @@ if (argv.deploy) {
 }
 
 gulp.task('buildIndex', () => {
-  gulp.src(['./libs/articles/index-article.html', './libs/articles/index-immersive.html'])
+  gulp.src(['./libs/articles/article-standard.html', './libs/articles/article-immersive.html'])
     .pipe(fileinclude({
       prefix: '@@',
       basepath: '@file',
