@@ -17,8 +17,8 @@ const destinations = (slug) => ({
     jsUrl: './dist/app.js'
   },
   remote: {
-    cssUrl: `https://asset.wsj.net/wsjnewsgraphics/dice/${slug}/app.css`,
-    jsUrl: `https://asset.wsj.net/wsjnewsgraphics/dice/${slug}/app.js`
+    cssUrl: `https://asset.wsj.net/wsjnewsgraphics/dice/${slug}/app.min.css`,
+    jsUrl: `https://asset.wsj.net/wsjnewsgraphics/dice/${slug}/app.min.js`
   }
 });
 
