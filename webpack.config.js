@@ -6,6 +6,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 const cssName = isProduction ? '[name].min.css' : '[name].css';
 const extractCSS = new ExtractTextPlugin(cssName);
+const CONFIG = require('./inset/data.json');
 
 const options = {
   devtool: 'source-map',
@@ -14,7 +15,9 @@ const options = {
   },
   output: {
     filename: isProduction ? '[name].min.js' : '[name].js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    library: CONFIG.slug,
+    libraryTarget: 'window'
   },
   module: {
     rules: [

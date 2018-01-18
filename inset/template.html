@@ -5,6 +5,6 @@
   loadCSS('{{{ cssUrl }}}');
   loadJs('{{{ jsUrl }}}');
   whenAvailable('{{{ slug }}}', function(app){
-    app("{{{ slug }}}-container");
+    app.init('{{{ slug }}}-container');
   });
 </script>
