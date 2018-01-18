@@ -16,9 +16,6 @@ $ npm install
 # watch for inset changes
 $ npm run watch
 
-# one time build inset
-$ npm run build
-
 # build and deploy
 $ npm run deploy
 ```
@@ -28,8 +25,8 @@ $ npm run deploy
 ### Deployment
 
 ## Examples
-- `http://127.0.0.1:3000/index-article.html`
-- `http://127.0.0.1:3000/index-immersive.html`
+- `http://127.0.0.1:3000/article-standard.html`
+- `http://127.0.0.1:3000/article-immersive.html`
 
 ## Contact
 Need Assistance? Email [tools@wsj.com](mailto:tools@wsj.com).

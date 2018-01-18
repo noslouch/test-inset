@@ -1,6 +1,10 @@
 <div class="example-headline">{{ headline }}</div>
 <div class="example-description">{{ description }}</div>
+<div id="{{{ slug }}}-container"></div>
 <script>
-  loadCSS('./dist/app.css');
-  loadJs('./dist/app.js');
+  loadCSS('{{{ cssUrl }}}');
+  loadJs('{{{ jsUrl }}}');
+  whenAvailable('{{{ slug }}}', function(app){
+    app("{{{ slug }}}-container");
+  });
 </script>

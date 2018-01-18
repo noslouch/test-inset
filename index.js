@@ -9,17 +9,29 @@ const prettyjson = require('prettyjson');
 const fileinclude = require('gulp-file-include');
 const gulp = require('gulp');
 
-const CONFIG = require('./src/config.json');
+const DATA = require('./inset/data.json');
+
+const destinations = (slug) => ({
+  local: {
+    cssUrl: './dist/app.css',
+    jsUrl: './dist/app.js'
+  },
+  remote: {
+    cssUrl: `https://asset.wsj.net/wsjnewsgraphics/dice/${slug}/app.css`,
+    jsUrl: `https://asset.wsj.net/wsjnewsgraphics/dice/${slug}/app.js`
+  }
+});
 
 JSON.minify = require('node-json-minify');
 
 function generateInset(isProduction){
   return new Promise((resolve, reject) => {
     const inset = JSON.parse('{"status":"OK","type":"InsetDynamic","platforms":["desktop"],"serverside":{"data":{"url":null},"template":{"url":null}}}');
-    const data = fs.readFileSync('./inset/data.json', 'utf8');
     const html = fs.readFileSync('./inset/template.html', 'utf8');
 
-    inset.serverside.data.data = JSON.parse(JSON.minify(data));
+    const assets = isProduction ? destinations(DATA.slug).remote : destinations().local;
+
+    inset.serverside.data.data = Object.assign({}, DATA, assets);
     inset.serverside.template.template = minify(html, {
       removeComments: true,
       removeEmptyAttributes: true
@@ -60,7 +72,7 @@ if (argv.watch) {
 if (argv.deploy) {
   console.log(colors.blue('Preparing deployment...'));
 
-  if (!CONFIG.slug) return console.log(colors.red('Please add a slug to `src/config.json`.'));
+  if (!DATA.slug) return console.log(colors.red('Please add a slug to `src/config.json`.'));
 
   // gather files to deploy
   const files = fs.readdirSync('dist');
@@ -68,7 +80,7 @@ if (argv.deploy) {
   // create requests
   const promises = files.map(file => {
     return request
-      .post(`http://int.production.file-uploader.virginia.dj01.onservo.com/api/v2/dice/${CONFIG.slug}/${file}`)
+      .post(`http://int.production.file-uploader.virginia.dj01.onservo.com/api/v2/dice/${DATA.slug}/${file}`)
       .attach('file', `dist/${file}`);
   });
 
