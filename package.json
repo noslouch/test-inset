@@ -4,15 +4,17 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "watch": "npm run clean && npm run watch:inset & npm run watch:app",
+    "start": "npm run clean:local && http-server -p 3000 & npm run watch",
+    "watch": "npm run watch:inset & npm run watch:app",
     "watch:inset": "node index.js --watch",
     "watch:app": "webpack --watch --progress --colors",
     "build:production": "npm run build:inset:production && npm run build:app:production",
     "build:inset:production": "node index.js --buildInset --production",
     "build:app:production": "NODE_ENV=production webpack -p",
     "build:article": "gulp --gulpfile index.js buildArticle",
-    "deploy": "npm run clean && npm run build:production && node index.js --deploy",
-    "clean": "rm -rf ./dist/*"
+    "deploy": "npm run clean:remote && npm run build:production && node index.js --deploy",
+    "clean:local": "rm -rf dist/local/ && mkdir -p dist/local",
+    "clean:remote": "rm -rf dist/remote/ && mkdir -p dist/remote"
   },
   "author": "",
   "license": "ISC",
@@ -35,6 +37,7 @@
     "extract-text-webpack-plugin": "^3.0.2",
     "gulp": "^3.9.1",
     "gulp-file-include": "^2.0.1",
+    "http-server": "^0.11.1",
     "node-sass": "^4.7.2",
     "postcss-loader": "^2.0.10",
     "sass-loader": "^6.0.6",

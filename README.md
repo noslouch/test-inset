@@ -7,22 +7,31 @@
 ## Installation
 The next section is installation. Tell users how to install your project locally. Include a code example if desired, like this:
 ```sh
-# Install dependencies
+# install dependencies
 $ npm install
 ```
 
 ## Usage
 ```sh
-# watch for inset changes
-$ npm run watch
+# run local server and watch for inset/ and src/ changes
+$ npm start
 
 # build and deploy
 $ npm run deploy
 ```
-- `src/` compiles to `dist/*`
-- `inset/` compiles to `dist/inset.json`
 
-### Deployment
+### `npm start`
+- starts `http-server` on port `3000`
+- watch `src/` and `inset/` for changes
+- builds `src/` to `dist/local/*`
+- builds `inset/` to `dist/local/inset.json`
+
+### `npm run deploy`
+- cleans `dist/remote/*
+- builds `src/` to `dist/remote/*`
+- builds `inset/` to `dist/remote/inset.json`
+- deploy assets to s3: `https://asset.wsj.net/wsjnewsgraphics/dice/slug/*`
+
 
 ## Examples
 - `http://127.0.0.1:3000/article-standard.html`

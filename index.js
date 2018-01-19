@@ -13,8 +13,8 @@ const DATA = require('./inset/data.json');
 
 const destinations = (slug) => ({
   local: {
-    cssUrl: './dist/app.css',
-    jsUrl: './dist/app.js'
+    cssUrl: './dist/local/app.css',
+    jsUrl: './dist/local/app.js'
   },
   remote: {
     cssUrl: `https://asset.wsj.net/wsjnewsgraphics/dice/${slug}/app.min.css`,
@@ -38,8 +38,9 @@ function generateInset(isProduction){
     });
 
     const space = isProduction ? null : '\t';
+    const filePath = isProduction ? 'dist/remote/inset.json' : 'dist/local/inset.json';
 
-    fs.writeFile(`dist/inset.json`, JSON.stringify(inset, null, space), 'utf8', err => {
+    fs.writeFile(filePath, JSON.stringify(inset, null, space), 'utf8', err => {
       if(err) reject('error saving file');
       resolve();
     });
@@ -75,13 +76,13 @@ if (argv.deploy) {
   if (!DATA.slug) return console.log(colors.red('Please add a slug to `src/config.json`.'));
 
   // gather files to deploy
-  const files = fs.readdirSync('dist');
+  const files = fs.readdirSync('dist/remote');
 
   // create requests
   const promises = files.map(file => {
     return request
       .post(`http://int.production.file-uploader.virginia.dj01.onservo.com/api/v2/dice/${DATA.slug}/${file}`)
-      .attach('file', `dist/${file}`);
+      .attach('file', `dist/remote/${file}`);
   });
 
   // send requests

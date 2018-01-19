@@ -4,7 +4,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-const cssName = isProduction ? '[name].min.css' : '[name].css';
+const cssName = isProduction ? 'remote/[name].min.css' : 'local/[name].css';
 const extractCSS = new ExtractTextPlugin(cssName);
 const CONFIG = require('./inset/data.json');
 
@@ -14,7 +14,7 @@ const options = {
     app: './src/index.js'
   },
   output: {
-    filename: isProduction ? '[name].min.js' : '[name].js',
+    filename: isProduction ? 'remote/[name].min.js' : 'local/[name].js',
     path: path.resolve(__dirname, 'dist'),
     library: CONFIG.slug,
     libraryTarget: 'window'
