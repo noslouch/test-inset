@@ -88,16 +88,22 @@ if (argv.deploy) {
   // send requests
   Promise.all(promises)
     .then(responses => {
-      responses.forEach(response => {
-        console.log(prettyjson.render(response.body.urls));
-        console.log('---');
-      })
+      responses
+        .filter(response => /inset.json/ig.test(response.body.urls.cached))
+        .forEach(response => {
+          console.log('\n----------');
+          console.log('Inset URLs');
+          console.log(prettyjson.render(response.body.urls));
+          console.log('----------\n');
+        });
+        
+      console.log(colors.blue('Deployment completed.'));
     })
     .catch(error => {
       console.log(colors.red(error));
     });
 
-  console.log(colors.blue('Deployment completed.'));
+
 }
 
 gulp.task('buildArticle', () => {
