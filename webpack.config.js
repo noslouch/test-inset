@@ -37,6 +37,12 @@ const options = {
             presets: ['babel-preset-env']
           }
         }
+      },
+      {
+        test: /\.[ct]sv$/,
+        use: [{
+          loader: "dsv-loader"
+        }]
       }
     ]
   },
