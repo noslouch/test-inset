@@ -20,6 +20,8 @@ $ npm start
 $ npm run deploy
 ```
 
+
+
 ### `npm start`
 - starts `http-server` on port `3000`
 - watch `src/` and `inset/` for changes
@@ -34,6 +36,8 @@ $ npm run deploy
 
 
 ## Examples
+
+Preview your inset at the urls below
 - `http://127.0.0.1:3000/article-standard.html`
 - `http://127.0.0.1:3000/article-immersive.html`
 
