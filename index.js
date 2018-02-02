@@ -9,8 +9,6 @@ const prettyjson = require('prettyjson');
 const fileinclude = require('gulp-file-include');
 const gulp = require('gulp');
 
-const DATA = require('./inset/data.json');
-
 const destinations = (slug) => ({
   local: {
     cssUrl: './dist/local/app.css',
@@ -25,6 +23,8 @@ const destinations = (slug) => ({
 JSON.minify = require('node-json-minify');
 
 function generateInset(isProduction){
+  const DATA = JSON.parse(fs.readFileSync('./inset/data.json', 'utf8'));
+
   return new Promise((resolve, reject) => {
     const inset = JSON.parse('{"status":"OK","type":"InsetDynamic","platforms":["desktop"],"serverside":{"data":{"url":null},"template":{"url":null}}}');
     const html = fs.readFileSync('./inset/template.html', 'utf8');
@@ -71,6 +71,7 @@ if (argv.watch) {
 }
 
 if (argv.deploy) {
+  const DATA = JSON.parse(fs.readFileSync('./inset/data.json', 'utf8'));
   console.log(colors.blue('Preparing deployment...'));
 
   if (!DATA.slug) return console.log(colors.red('Please add a slug to `src/config.json`.'));
@@ -96,7 +97,7 @@ if (argv.deploy) {
           console.log(prettyjson.render(response.body.urls));
           console.log('----------\n');
         });
-        
+
       console.log(colors.blue('Deployment completed.'));
     })
     .catch(error => {
