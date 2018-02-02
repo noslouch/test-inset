@@ -2,7 +2,10 @@
 
 
 ## Table of Contents
-
+* [Installation](#installation)
+* [Usage](#usage)
+* [Examples](#examples)
+* [Contact](#contact)
 
 ## Installation
 The next section is installation. Tell users how to install your project locally. Include a code example if desired, like this:
