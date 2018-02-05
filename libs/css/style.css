@@ -41,6 +41,7 @@
 .product-header__name {
   color: #fff;
   font-size: 18px;
+  font-weight: 600;
   letter-spacing: .75px;
   line-height: 22px;
   margin: 0;
