@@ -1,4 +1,4 @@
-# dice
+# D.I.C.E.
 
 Dynamic Inset Development Equipment
 
