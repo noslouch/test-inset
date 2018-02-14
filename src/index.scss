@@ -1,0 +1,15 @@
+@import '~wsjgraphics-css/src/index.scss';
+// go here for a guide to wsjgraphics.css
+// https://github.dowjones.net/pages/bentleye/wsjgraphics.css/
+
+.inset-hed {
+  @extend .chart-headline;
+}
+
+.inset-dek {
+  @extend .chart-dek;
+}
+
+.inset-source{
+  @extend .chart-source;
+}
