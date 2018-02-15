@@ -68,6 +68,8 @@ import d3wsj from 'd3wsj';
 
 ### [wsjgraphics.css](https://github.dowjones.net/bentleye/wsjgraphics.css/) (buttons, chart styles, colors, etc)
 
+_Note: DICE now comes with this library by default._
+
 On the command line:
 
 ```bash
@@ -77,7 +79,7 @@ npm install git+https://github.dowjones.net/bentleye/wsjgraphics.css.git --save
 In your SCSS file:
 
 ```scss
-@import '~wsjgraphics-css/index.css';
+@import '~wsjgraphics-css';
 ```
 
 ## Deploying

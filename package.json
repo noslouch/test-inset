@@ -27,6 +27,7 @@
     "node-json-minify": "^1.0.0",
     "prettyjson": "^1.2.1",
     "superagent": "^3.8.2",
+    "wsjgraphics-css": "git+https://github.dowjones.net/bentleye/wsjgraphics.css.git",
     "yargs": "^10.1.1"
   },
   "devDependencies": {
