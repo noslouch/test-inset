@@ -1,6 +1,6 @@
 # Dice
 
-Dynamic Inset Development Equipment
+**D**ynamic **I**nset **C**reation **E**quipment
 
 ## Table of Contents
 * [Setup](#setup)
@@ -87,7 +87,7 @@ Before deploying, make sure that:
 - preview pages look ok
 - `slug` has been set in `inset/data.json`
   - the format should be `project-name-uuid` -> `foobar-9c4341b7-f216-49fc-8fed-4aca7d6ad0c1`
-  - grab a uuid [here](https://www.uuidgenerator.net/) 
+  - grab a uuid [here](https://www.uuidgenerator.net/)
 
 To deploy your inset to S3, run this:
 
