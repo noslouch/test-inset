@@ -46,7 +46,7 @@ Once you’re running `npm start`, preview your inset at the urls below:
 
 ## Installing libraries
 
-All libraries should be installed with NPM and bundled using Webpack.
+All libraries should be installed with NPM and bundled using Webpack. Make sure you have NPM version 5.7.1 or higher ([upgrade instructions here](https://docs.npmjs.com/getting-started/installing-node#2-update-npm)).
 
 Here are a few examples:
 
@@ -62,7 +62,37 @@ npm install git+https://github.dowjones.net/WSJNewsGraphics/d3-wsj.git --save
 In your JavaScript:
 ```js
 import * as d3 from 'd3';
-import d3wsj from 'd3wsj';
+import * as d3wsj from 'd3wsj';
+```
+
+### jQuery
+
+On the command line:
+
+```bash
+npm install jquery --save
+```
+
+In your JavaScript:
+
+```js
+import $ from 'jquery';
+```
+
+### [Owl Carousel](https://owlcarousel2.github.io/OwlCarousel2/)
+
+On the command line:
+
+```bash
+npm install jquery --save
+npm install owl.carousel --save
+```
+
+In your JavaScript:
+
+```js
+import 'owl.carousel/dist/assets/owl.carousel.css';
+import 'owl.carousel';
 ```
 
 ## Deploying

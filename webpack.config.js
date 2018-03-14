@@ -22,10 +22,15 @@ const options = {
   module: {
     rules: [
       {
-        test: /\.scss$/,
+        test: /\.s?css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader','postcss-loader','sass-loader']
+          use: [{
+            loader: 'css-loader',
+            options: {
+              url: false
+            }
+          },'postcss-loader','sass-loader']
         })
       },
       {
@@ -47,7 +52,12 @@ const options = {
     ]
   },
   plugins: [
-    extractCSS
+    extractCSS,
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery'
+    })
   ]
 };
 
