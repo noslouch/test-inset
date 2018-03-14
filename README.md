@@ -84,7 +84,6 @@ import $ from 'jquery';
 On the command line:
 
 ```bash
-npm install jquery --save
 npm install owl.carousel --save
 ```
 
