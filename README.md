@@ -60,26 +60,9 @@ npm install git+https://github.dowjones.net/WSJNewsGraphics/d3-wsj.git --save
 ```
 
 In your JavaScript:
-
 ```js
 import * as d3 from 'd3';
 import d3wsj from 'd3wsj';
-```
-
-### [wsjgraphics.css](https://github.dowjones.net/bentleye/wsjgraphics.css/) (buttons, chart styles, colors, etc)
-
-_Note: DICE now comes with this library by default._
-
-On the command line:
-
-```bash
-npm install git+https://github.dowjones.net/bentleye/wsjgraphics.css.git --save
-```
-
-In your SCSS file:
-
-```scss
-@import '~wsjgraphics-css';
 ```
 
 ## Deploying
@@ -128,6 +111,10 @@ Your fallback image should be at least 800px wide, and the type should be nice a
 2. Take note of the GAMS number.
 3. In Methode, add the image below the inset.
     - Check "Mobile app" but uncheck "Web".
+
+## Tracking
+
+Integrate tracking (of clicks and other interactions) using [this snippet](https://github.dowjones.net/gist/deboldt/656deb287ccb4f12dc42ddf020e4044b).
 
 ## Contact
 
