@@ -46,7 +46,7 @@ Once you’re running `npm start`, preview your inset at the urls below:
 
 ## Installing libraries
 
-All libraries should be installed with NPM and bundled using Webpack.
+All libraries should be installed with NPM and bundled using Webpack. Make sure you have NPM version 5.7.1 or higher ([upgrade instructions here](https://docs.npmjs.com/getting-started/installing-node#2-update-npm)).
 
 Here are a few examples:
 
@@ -60,26 +60,38 @@ npm install git+https://github.dowjones.net/WSJNewsGraphics/d3-wsj.git --save
 ```
 
 In your JavaScript:
-
 ```js
 import * as d3 from 'd3';
-import d3wsj from 'd3wsj';
+import * as d3wsj from 'd3wsj';
 ```
 
-### [wsjgraphics.css](https://github.dowjones.net/bentleye/wsjgraphics.css/) (buttons, chart styles, colors, etc)
-
-_Note: DICE now comes with this library by default._
+### jQuery
 
 On the command line:
 
 ```bash
-npm install git+https://github.dowjones.net/bentleye/wsjgraphics.css.git --save
+npm install jquery --save
 ```
 
-In your SCSS file:
+In your JavaScript:
 
-```scss
-@import '~wsjgraphics-css';
+```js
+import $ from 'jquery';
+```
+
+### [Owl Carousel](https://owlcarousel2.github.io/OwlCarousel2/)
+
+On the command line:
+
+```bash
+npm install owl.carousel --save
+```
+
+In your JavaScript:
+
+```js
+import 'owl.carousel/dist/assets/owl.carousel.css';
+import 'owl.carousel';
 ```
 
 ## Deploying
@@ -128,6 +140,10 @@ Your fallback image should be at least 800px wide, and the type should be nice a
 2. Take note of the GAMS number.
 3. In Methode, add the image below the inset.
     - Check "Mobile app" but uncheck "Web".
+
+## Tracking
+
+Integrate tracking (of clicks and other interactions) using [this snippet](https://github.dowjones.net/gist/deboldt/656deb287ccb4f12dc42ddf020e4044b).
 
 ## Contact
 
