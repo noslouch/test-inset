@@ -1,3 +1,20 @@
+  <script>
+    function applyGridClassName() {
+      let className;
+      if (window.innerWidth >= 1301) {
+        className = 'at16units';
+      } else if (window.innerWidth >= 981) {
+        className = 'at12units';
+      } else if (window.innerWidth >= 661) {
+        className = 'at8units';
+      } else {
+        className = 'at4units';
+      }
+      document.body.classList.add(className);
+    }
+
+    applyGridClassName();
+  </script>
   <script src="./libs/jquery.min.js"></script>
   <script src="./libs/mustache.min.js"></script>
   <script src="./libs/wsj-inset.js"></script>
