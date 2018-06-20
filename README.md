@@ -18,6 +18,8 @@
     git clone https://github.dowjones.net/skunkworks/dice.git NAME_OF_PROJECT
     ```
 
+    Then `cd` into the new folder.
+
 2. Make sure you have Node >= 6.0 installed ([Node installer is here](https://nodejs.org/)). Then install dependencies:
 
     ```sh
@@ -94,15 +96,22 @@ import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel';
 ```
 
+## Creating a dev link
+
+1. Deploy the inset using the instructions below. _(Technically there is no 'dev environment' for insets.)_
+2. Grab the inset URL from the response.
+3. Add the inset URL to the end of this URL:
+```http://graphicstools.dowjones.net/preview/?inset=```
+
 ## Deploying
 
 Before deploying, make sure that:
 
-- code is fully pushed to GitHub
-- preview pages look ok
 - `slug` has been set in `inset/data.json`
   - the format should be `project-name-uuid` -> `foobar-9c4341b7-f216-49fc-8fed-4aca7d6ad0c1`
   - grab a uuid [here](https://www.uuidgenerator.net/)
+- preview pages look ok
+- code is fully pushed to GitHub
 
 To deploy your inset to S3, run this:
 
@@ -140,6 +149,14 @@ Your fallback image should be at least 800px wide, and the type should be nice a
 2. Take note of the GAMS number.
 3. In Methode, add the image below the inset.
     - Check "Mobile app" but uncheck "Web".
+
+## Embedding as an iframe
+
+It's possible to render an inset as a standalone page, or in an iframe. This might be useful in the iPhone app or blogs like WSJ RealTime.
+
+To generate that URL, replace `URL_GOES_HERE` with your inset link.
+
+```https://graphics.wsj.com/dynamic-inset-iframer/?url=URL_GOES_HERE```
 
 ## Tracking
 
