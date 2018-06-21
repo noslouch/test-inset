@@ -7,7 +7,8 @@
 * [Viewing locally](#viewing-locally)
 * [Installing libraries](#installing-libraries)
 * [Deploying](#deploying)
-* [Fallback images](#fallback-images)
+* [How to embed in the mobile app](#how-to-embed-in-the-mobile-app)
+* [Tracking](#tracking)
 * [Contact](#contact)
 
 ## Setup
@@ -128,13 +129,13 @@ What this script does:
 - builds `inset/` to `dist/remote/inset.json`
 - deploy assets to s3: `https://asset.wsj.net/wsjnewsgraphics/dice/slug/*`
 
-## Fallback images
+## How to embed in the mobile app
 
-Dynamic insets are not rendered in the mobile app or on AMP pages. Instead, we must show a static image fallback, as in ai2html and Chartlos. [Here’s an example fallback image](https://si.wsj.net/public/resources/images/OG-BC775_201701_4U_20180131192818.png).
+Dynamic insets are not rendered in the mobile app or on AMP or Apple News pages. Instead, we have three options:
 
-If there is no possible static image (e.g. when using live data), you may want to consider using [Template Chameleon](https://github.dowjones.net/skunkworks/template-chameleon) instead.
+### 1. Show a static image fallback
 
-### Creating a fallback image
+Show a static image fallback, as in ai2html and Chartlos. [Here’s an example fallback image](https://si.wsj.net/public/resources/images/OG-BC775_201701_4U_20180131192818.png). See below for more details.
 
 Here are two possible methods for creating a fallback image:
 
@@ -143,24 +144,50 @@ Here are two possible methods for creating a fallback image:
 
 Your fallback image should be at least 800px wide, and the type should be nice and sharp.
 
-### Getting a fallback image in an article
+To get it in the article:
 
 1. Upload fallback image through [the whopper](http://graphicsdev.dowjones.net/tools/whopper/uploader).
 2. Take note of the GAMS number.
 3. In Methode, add the image below the inset.
     - Check "Mobile app" but uncheck "Web".
 
-## Embedding as an iframe
+### 2. Add a link to a standalone page
 
-It's possible to render an inset as a standalone page, or in an iframe. This might be useful in the iPhone app or blogs like WSJ RealTime.
+Link out to a separate page (for the app only). This will make it behave like a Template Chameleon embed.
 
-To generate that URL, replace `URL_GOES_HERE` with your inset link.
+1. Generate a standalone URL using the template below by replacing `URL_GOES_HERE` with your inset link.
+  ```https://graphics.wsj.com/dynamic-inset-iframer/?url=URL_GOES_HERE```
+2. Create a promo image and upload it to the Whopper. It should be a G size, with the headline text on the image (because the app doesn't show a strap).
+3. Create a new settings file using the [settings file tool](http://cropper.dowjones.net/dev/settings_file_tool/). If you don't add a promo image to the settings file, it will show up in the app as a mysterious gray box.
+4. In Methode, add the settings file below the inset.
+    - Check "Mobile app" but uncheck "Web".
 
-```https://graphics.wsj.com/dynamic-inset-iframer/?url=URL_GOES_HERE```
+### 3. Don’t show anything at all
+
+Not ideal, but if the content isn't worth clicking through to a separate page for, and can't be respresented with a static image, maybe we don't show it in the app.
 
 ## Tracking
 
-Integrate tracking (of clicks and other interactions) using [this snippet](https://github.dowjones.net/gist/deboldt/656deb287ccb4f12dc42ddf020e4044b).
+Integrate tracking (of clicks and other interactions) using this snippet:
+
+```js
+function trackAction(action) {
+	var additionalAttributes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+	if (window && window.NREUM) {
+		var data = Object.assign({}, {
+			projectOwner: 'wsjGraphics',
+			projectName: 'your-slug-here'
+		}, additionalAttributes);
+		window.NREUM.addPageAction(action, data);
+	}
+}
+```
+
+Use it like so:
+
+```
+trackAction('clickButton');
+```
 
 ## Contact
 
