@@ -97,6 +97,20 @@ import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel';
 ```
 
+### [Genericharts](https://github.dowjones.net/bentleye/genericharts)
+
+On the command line:
+
+```bash
+npm install git+https://github.dowjones.net/bentleye/genericharts.git --save
+```
+
+In your Javascript:
+
+```js
+import * as WSJCharts from 'genericharts';
+```
+
 ## Creating a dev link
 
 1. Deploy the inset using the instructions below. _(Technically there is no 'dev environment' for insets.)_
