@@ -8,15 +8,20 @@ const request = require('superagent');
 const prettyjson = require('prettyjson');
 const fileinclude = require('gulp-file-include');
 const gulp = require('gulp');
+const puppeteer = require('puppeteer');
+const screenshotDOMElement = require('./screencap.js');
+const sizeOf = require('image-size');
 
 const destinations = (slug) => ({
   local: {
     cssUrl: './dist/local/app.css',
-    jsUrl: './dist/local/app.js'
+    jsUrl: './dist/local/app.js',
+    fallbackUrl: './dist/local/fallback.png'
   },
   remote: {
     cssUrl: `https://asset.wsj.net/wsjnewsgraphics/dice/${slug}/app.min.css`,
-    jsUrl: `https://asset.wsj.net/wsjnewsgraphics/dice/${slug}/app.min.js`
+    jsUrl: `https://asset.wsj.net/wsjnewsgraphics/dice/${slug}/app.min.js`,
+    fallbackUrl: `https://asset.wsj.net/wsjnewsgraphics/dice/${slug}/fallback.png`
   }
 });
 
@@ -47,9 +52,79 @@ function generateInset(isProduction){
   });
 }
 
+function generateFallback(isProduction,port=3000){
+  const DATA = JSON.parse(fs.readFileSync('./inset/data.json', 'utf8'));
+  const filePath = isProduction ? 'dist/remote' : 'dist/local';
+  const inset = JSON.parse(fs.readFileSync(`${filePath}/inset.json`, 'utf8'));
+  const fallbackPath = isProduction ? destinations(DATA.slug).remote.fallbackUrl : destinations().local.fallbackUrl;
+
+  return new Promise (async (resolve, reject) => {
+    if (DATA.createFallbackImage === true) {
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
+      await page.setViewport({width: 1000, height: 600, deviceScaleFactor: 2});
+      await page.goto(`http://127.0.0.1:${port}/article-standard.html#wrap`, {waitUntil: 'networkidle2'});
+      await screenshotDOMElement(`${filePath}/fallback.png`,page, '.wsjgraphics');
+      await browser.close();
+
+      const fallbackDimensions = sizeOf(`${filePath}/fallback.png`);
+
+      inset.platforms.push('mobile');
+      inset.alt = {
+        render: {src: `https://graphics.wsj.com/dynamic-inset-iframer/?url=https://asset.wsj.net/wsjnewsgraphics/dice/${DATA.slug}/inset.json`},
+        text: null,
+        link: '#',
+        picture: {
+          sources: [{
+            media: '4u',
+            srcset: fallbackPath,
+            width: fallbackDimensions.width/2,
+            height: fallbackDimensions.height/2
+          }],
+          img: {
+            src: fallbackPath,
+            type: 'graphic',
+            width: fallbackDimensions.width/2,
+            height: fallbackDimensions.height/2
+          }
+        }
+      };
+
+      const space = isProduction ? null : '\t';
+
+      fs.writeFile(`${filePath}/inset.json`, JSON.stringify(inset, null, space), 'utf8', err => {
+        if(err) reject('error saving file');
+        console.log(colors.green('Fallback image created and added to inset.'));
+        resolve();
+      });
+    } else {
+      console.log(colors.gray('Fallback image screenshot disabled.'));
+      resolve();
+    }
+    });
+}
+
 if (argv.buildInset) {
   console.log(colors.blue('Preparing inset build...'));
   generateInset(argv.production).then(() => console.log(colors.green('Inset build complete.')));
+}
+
+if (argv.buildFallback) {
+  console.log(colors.blue('Preparing fallback image...'));
+  //start up a fresh http server
+  const { spawn } = require('child_process');
+  const server = spawn('http-server -p 3001',{
+    stdio: ['pipe', 'pipe', process.stderr],
+    shell: true
+  });
+  server.stdout.on('data',(data) => {
+    if(data.toString() === 'Starting up http-server, serving ./\nAvailable on:\n') {
+      generateFallback(argv.production,'3001').then(() => {
+        server.kill();
+        console.log(colors.green('Fallback image preparation complete.'));
+      });
+    }
+  });
 }
 
 if (argv.watch) {
@@ -66,7 +141,10 @@ if (argv.watch) {
       });
     })
     .on('change', () => {
-      generateInset().then(() => console.log(colors.green('Rebuild complete.')));
+      generateInset().then(() => {
+        console.log(colors.green('Rebuild complete.'));
+        generateFallback().then(() => console.log(colors.green('Fallback screenshot created.')));
+      });
     });
 }
 

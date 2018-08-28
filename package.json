@@ -8,9 +8,10 @@
     "watch": "npm run watch:inset & npm run watch:app",
     "watch:inset": "node index.js --watch",
     "watch:app": "webpack --watch --progress --colors",
-    "build:production": "npm run build:inset:production && npm run build:app:production",
+    "build:production": "npm run build:inset:production && npm run build:app:production && npm run build:fallback:production",
     "build:inset:production": "node index.js --buildInset --production",
     "build:app:production": "NODE_ENV=production webpack -p",
+    "build:fallback:production": "node index.js --buildFallback --production",
     "build:article": "gulp --gulpfile index.js buildArticle",
     "deploy": "npm run clean:remote && npm run build:production && node index.js --deploy",
     "clean:local": "rm -rf dist/local/ && mkdir -p dist/local",
@@ -40,10 +41,13 @@
     "gulp": "^4.0.0",
     "gulp-file-include": "^2.0.1",
     "http-server": "^0.11.1",
+    "image-size": "^0.6.3",
     "node-sass": "^4.9.2",
     "postcss-loader": "^2.0.10",
+    "puppeteer": "^1.7.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.1",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "webpack-shell-plugin": "^0.5.0"
   }
 }
