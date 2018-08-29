@@ -145,11 +145,11 @@ What this script does:
 
 ## How to embed in the mobile app
 
-By default, dice creates a screenshot of the inset in `dist/local/fallback.png` when `npm start` is running or `dist/remote/fallback.png` when `npm run deploy` is executed. This is automatically packaged as a fallback image in `inset.json`. No other steps are necessary.
+Dynamic insets are not rendered in the mobile app or on AMP or Apple News pages by default.
 
-If the inset has interactive input elements like buttons, sliders, or text boxes, this might not be appropriate. You can turn off the automatic screenshot functionality by setting `createFallbackImage: false` in `inset/data.json`.
+You can ✨automatically✨ create a fallback screenshot of your inset by setting `createFallbackImage` to `true` in `inset/data.json`. This screenshot will be created in `dist/local/fallback.png` when `npm start` is running or `dist/remote/fallback.png` when `npm run deploy` is executed. It will be automatically added to `inset.json` and deployed. No other steps are required.
 
-Here are three other options if the automatic screenshot is off:
+If `createFallbackImage` is not appropriate for your interactive inset, here are other options:
 
 ### 1. Manually create and place a static image fallback
 
