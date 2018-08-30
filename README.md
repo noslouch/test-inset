@@ -145,9 +145,13 @@ What this script does:
 
 ## How to embed in the mobile app
 
-Dynamic insets are not rendered in the mobile app or on AMP or Apple News pages. Instead, we have three options:
+Dynamic insets are not rendered in the mobile app or on AMP or Apple News pages by default.
 
-### 1. Show a static image fallback
+You can ✨automatically✨ create a fallback screenshot of your inset by setting `createFallbackImage` to `true` in `inset/data.json`. This screenshot will be created in `dist/local/fallback.png` when `npm start` is running or `dist/remote/fallback.png` when `npm run deploy` is executed. It will be automatically added to `inset.json` and deployed. No other steps are required.
+
+If `createFallbackImage` is not appropriate for your interactive inset, here are other options:
+
+### 1. Manually create and place a static image fallback
 
 Show a static image fallback, as in ai2html and Chartlos. [Here’s an example fallback image](https://si.wsj.net/public/resources/images/OG-BC775_201701_4U_20180131192818.png). See below for more details.
 
@@ -156,7 +160,7 @@ Here are two possible methods for creating a fallback image:
 - [Screenshot a DOM element in Chrome](https://developers.google.com/web/updates/2017/08/devtools-release-notes#node-screenshots) (on a high-dpi/retina screen)
 - Create it in Illustrator using the ai2html template, and export the "4u fallback" artboard at 300dpi
 
-Your fallback image should be at least 800px wide, and the type should be nice and sharp.
+Your fallback image should be at least 600px wide, and the type should be nice and sharp.
 
 To get it in the article:
 
@@ -178,7 +182,7 @@ Link out to a separate page (for the app only). This will make it behave like a 
 
 ### 3. Don’t show anything at all
 
-Not ideal, but if the content isn't worth clicking through to a separate page for, and can't be respresented with a static image, maybe we don't show it in the app.
+Not ideal, but if the content isn't worth clicking through to a separate page for, and can't be represented with a static image, maybe we don't show it in the app.
 
 ## Tracking
 
