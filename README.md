@@ -21,7 +21,7 @@
 
     Then `cd` into the new folder.
 
-2. Make sure you have Node >= 6.0 installed ([Node installer is here](https://nodejs.org/)). Then install dependencies:
+2. Make sure you have Node >= 8.0 installed ([Node installer is here](https://nodejs.org/)). Then install dependencies:
 
     ```sh
     npm install
