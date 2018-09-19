@@ -23,7 +23,7 @@
     "chokidar": "^2.0.4",
     "colors": "^1.1.2",
     "dsv-loader": "^2.0.0",
-    "handlebars": "^4.0.11",
+    "handlebars": "^4.0.12",
     "html-minifier": "^3.5.8",
     "node-json-minify": "^1.0.0",
     "prettyjson": "^1.2.1",
