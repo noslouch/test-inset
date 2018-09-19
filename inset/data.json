@@ -2,5 +2,5 @@
   "slug": "blah-10f9f3d1-993d-4c37-8db0-866dbc762272",
   "headline": "Hed Goes Here",
   "description": "Dek in sentence case goes here.",
-  "createFallbackImage": true
+  "createFallbackImage": false
 }

@@ -16,9 +16,7 @@ const options = {
   },
   output: {
     filename: isProduction ? 'remote/[name].min.js' : 'local/[name].js',
-    path: path.resolve(__dirname, 'dist'),
-    library: CONFIG.slug,
-    libraryTarget: 'window'
+    path: path.resolve(__dirname, 'dist')
   },
   module: {
     rules: [
