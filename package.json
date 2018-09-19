@@ -12,7 +12,7 @@
     "build:inset:production": "node index.js --buildInset --production",
     "build:app:production": "NODE_ENV=production webpack -p",
     "build:fallback:production": "node index.js --buildFallback --production",
-    "build:article": "gulp --gulpfile index.js buildArticle",
+    "build:article": "gulp buildArticle",
     "deploy": "npm run clean:remote && npm run build:production && node index.js --deploy",
     "clean:local": "rm -rf dist/local/ && mkdir -p dist/local",
     "clean:remote": "rm -rf dist/remote/ && mkdir -p dist/remote"

@@ -1,66 +1,57 @@
-const path = require('path');
+const { resolve } = require('path');
 const fs = require('fs');
+const { promisify } = require('util');
+const readFileAsync = promisify(fs.readFile);
+const writeFileAsync = promisify(fs.writeFile);
 const minify = require('html-minifier').minify;
 const argv = require('yargs').argv;
+const handlebars = require('handlebars');
 const chokidar = require('chokidar');
 const colors = require('colors');
 const request = require('superagent');
 const prettyjson = require('prettyjson');
-const fileinclude = require('gulp-file-include');
-const gulp = require('gulp');
 const puppeteer = require('puppeteer');
-const screenshotDOMElement = require('./screencap.js');
 const sizeOf = require('image-size');
 
-const destinations = (slug) => ({
-  local: {
-    cssUrl: './dist/local/app.css',
-    jsUrl: './dist/local/app.js',
-    fallbackUrl: './dist/local/fallback.png'
-  },
-  remote: {
-    cssUrl: `https://asset.wsj.net/wsjnewsgraphics/dice/${slug}/app.min.css`,
-    jsUrl: `https://asset.wsj.net/wsjnewsgraphics/dice/${slug}/app.min.js`,
-    fallbackUrl: `https://asset.wsj.net/wsjnewsgraphics/dice/${slug}/fallback.png`
-  }
-});
+const destinations = require('./utils/destinations');
+const screenshotDOMElement = require('./utils/screencapture');
+
+const DATA = require(resolve(__dirname, './inset/data.json'));
 
 JSON.minify = require('node-json-minify');
 
-function generateInset(isProduction){
-  const DATA = JSON.parse(fs.readFileSync('./inset/data.json', 'utf8'));
+async function generateInset(isProduction){
+  const assets = isProduction ? destinations(DATA.slug).remote : destinations().local;
+  const source = await readFileAsync(resolve(__dirname, './inset/template.html'), 'utf8');
+  const template = handlebars.compile(source);
+  const data = Object.assign({}, DATA, assets);
+  const html = template(data);
 
-  return new Promise((resolve, reject) => {
-    const inset = JSON.parse('{"status":"OK","type":"InsetDynamic","platforms":["desktop"],"serverside":{"data":{"url":null},"template":{"url":null}}}');
-    const html = fs.readFileSync('./inset/template.html', 'utf8');
+  const inset = JSON.parse('{"status":"OK","type":"InsetDynamic","platforms":["desktop"],"serverside":{"data":{"data":{}},"template":{}}}');
 
-    const assets = isProduction ? destinations(DATA.slug).remote : destinations().local;
-
-    inset.serverside.data.data = Object.assign({}, DATA, assets);
-    inset.serverside.template.template = minify(html, {
-      removeComments: true,
-      removeEmptyAttributes: true
-    });
-
-    const space = isProduction ? null : '\t';
-    const filePath = isProduction ? 'dist/remote/inset.json' : 'dist/local/inset.json';
-
-    fs.writeFile(filePath, JSON.stringify(inset, null, space), 'utf8', err => {
-      if(err) reject('error saving file');
-      resolve();
-    });
+  inset.serverside.template.template = minify(html, {
+    removeComments: true,
+    removeEmptyAttributes: true
   });
+
+  const space = isProduction ? null : '\t';
+  const filePath = isProduction ? 'dist/remote/inset.json' : 'dist/local/inset.json';
+
+  try {
+    const fileError = await writeFileAsync(filePath, JSON.stringify(inset, null, space), 'utf8');
+    return;
+  } catch(error) {
+    console.log(error);
+  }
 }
 
-function generateFallback(isProduction,port=3000){
-  const DATA = JSON.parse(fs.readFileSync('./inset/data.json', 'utf8'));
+async function generateFallback(isProduction, port = 3000){
   const filePath = isProduction ? 'dist/remote' : 'dist/local';
   const inset = JSON.parse(fs.readFileSync(`${filePath}/inset.json`, 'utf8'));
   const fallbackPath = isProduction ? destinations(DATA.slug).remote.fallbackUrl : destinations().local.fallbackUrl;
 
   return new Promise (async (resolve, reject) => {
-    if (DATA.createFallbackImage === true) {
-      const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch();
       const page = await browser.newPage();
       await page.setViewport({width: 1000, height: 600, deviceScaleFactor: 2});
       await page.goto(`http://127.0.0.1:${port}/article-standard.html#wrap`, {waitUntil: 'networkidle2'});
@@ -71,7 +62,7 @@ function generateFallback(isProduction,port=3000){
 
       inset.platforms.push('mobile');
       inset.alt = {
-        render: {src: `https://graphics.wsj.com/dynamic-inset-iframer/?url=https://asset.wsj.net/wsjnewsgraphics/dice/${DATA.slug}/inset.json`},
+        render: { src: `https://graphics.wsj.com/dynamic-inset-iframer/?url=https://asset.wsj.net/wsjnewsgraphics/dice/${DATA.slug}/inset.json`},
         text: null,
         link: '#',
         picture: {
@@ -97,11 +88,7 @@ function generateFallback(isProduction,port=3000){
         console.log(colors.green('Fallback image created and added to inset.'));
         resolve();
       });
-    } else {
-      console.log(colors.gray('Fallback image screenshot disabled.'));
-      resolve();
-    }
-    });
+  });
 }
 
 if (argv.buildInset) {
@@ -109,7 +96,7 @@ if (argv.buildInset) {
   generateInset(argv.production).then(() => console.log(colors.green('Inset build complete.')));
 }
 
-if (argv.buildFallback) {
+if (argv.buildFallback && DATA.createFallbackImage) {
   console.log(colors.blue('Preparing fallback image...'));
   //start up a fresh http server
   const { spawn } = require('child_process');
@@ -117,7 +104,7 @@ if (argv.buildFallback) {
     stdio: ['pipe', 'pipe', process.stderr],
     shell: true
   });
-  server.stdout.on('data',(data) => {
+  server.stdout.on('data', (data) => {
     if(data.toString() === 'Starting up http-server, serving ./\nAvailable on:\n') {
       generateFallback(argv.production,'3001').then(() => {
         server.kill();
@@ -141,10 +128,16 @@ if (argv.watch) {
       });
     })
     .on('change', () => {
-      generateInset().then(() => {
-        console.log(colors.green('Rebuild complete.'));
-        generateFallback().then(() => console.log(colors.green('Fallback screenshot created.')));
-      });
+      generateInset()
+        .then(() => {
+          console.log(colors.green('Rebuild complete.'));
+          if (DATA.createFallbackImage) {
+            return generateFallback();
+          } else {
+            return Promise.resolve();
+          }
+        })
+        .then(() => console.log(colors.green('Fallback screenshot created.')));
     });
 }
 
@@ -168,7 +161,7 @@ if (argv.deploy) {
   Promise.all(promises)
     .then(responses => {
       responses
-        .filter(response => /inset.json/ig.test(response.body.urls.cached))
+        .filter(response => /inset\.json/ig.test(response.body.urls.cached))
         .forEach(response => {
           console.log('\n----------');
           console.log('Inset URLs');
@@ -181,16 +174,4 @@ if (argv.deploy) {
     .catch(error => {
       console.log(colors.red(error));
     });
-
-
 }
-
-gulp.task('buildArticle', () => {
-  gulp.src(['./libs/articles/article-standard.html', './libs/articles/article-immersive.html'])
-    .pipe(fileinclude({
-      prefix: '@@',
-      basepath: '@file',
-      indent: true
-    }))
-    .pipe(gulp.dest('./'));
-});
