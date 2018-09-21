@@ -19,7 +19,8 @@ const screenshotDOMElement = require('./utils/screencapture');
 JSON.minify = require('node-json-minify');
 
 async function generateInset(isProduction){
-  const DATA = require(resolve(__dirname, './inset/data.json'));
+  const DATA = JSON.parse(await readFileAsync(resolve(__dirname, './inset/data.json'), 'utf8'));
+  
   const assets = isProduction ? destinations(DATA.slug).remote : destinations().local;
   const source = await readFileAsync(resolve(__dirname, './inset/template.html'), 'utf8');
   const template = handlebars.compile(source);
@@ -45,8 +46,9 @@ async function generateInset(isProduction){
 }
 
 async function generateFallback(isProduction, port = 3000){
-  const DATA = require(resolve(__dirname, './inset/data.json'));
-  if(!DATA.createFallbackImage) Promise.resolve();
+  const DATA = JSON.parse(await readFileAsync(resolve(__dirname, './inset/data.json'), 'utf8'));
+
+  if(!DATA.createFallbackImage) return Promise.reject('Fallback option not set');
 
   const filePath = isProduction ? 'dist/remote' : 'dist/local';
   const inset = JSON.parse(fs.readFileSync(`${filePath}/inset.json`, 'utf8'));
@@ -99,7 +101,7 @@ if (argv.buildInset) {
 }
 
 if (argv.buildFallback) {
-  const DATA = require(resolve(__dirname, './inset/data.json'));
+  const DATA = JSON.parse(fs.readFileSync('./inset/data.json', 'utf8'));
   if(!DATA.createFallbackImage) return;
   
   console.log(colors.blue('Preparing fallback image...'));
@@ -133,10 +135,13 @@ if (argv.watch) {
       });
     })
     .on('change', () => {
-      generateInset().then(() => {
-        console.log(colors.green('Rebuild complete.'));          
-        generateFallback().then(() => console.log(colors.green('Fallback screenshot created.')));
-      });
+      generateInset()
+        .then(() => {
+          console.log(colors.green('Rebuild complete.'));          
+          return generateFallback();
+        })
+        .then(() => console.log(colors.green('Fallback screenshot created.')))
+        .catch(response => console.log(colors.gray(response)));
     });
 }
 
