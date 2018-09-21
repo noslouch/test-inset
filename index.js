@@ -16,11 +16,10 @@ const sizeOf = require('image-size');
 const destinations = require('./utils/destinations');
 const screenshotDOMElement = require('./utils/screencapture');
 
-const DATA = require(resolve(__dirname, './inset/data.json'));
-
 JSON.minify = require('node-json-minify');
 
 async function generateInset(isProduction){
+  const DATA = require(resolve(__dirname, './inset/data.json'));
   const assets = isProduction ? destinations(DATA.slug).remote : destinations().local;
   const source = await readFileAsync(resolve(__dirname, './inset/template.html'), 'utf8');
   const template = handlebars.compile(source);
@@ -46,6 +45,9 @@ async function generateInset(isProduction){
 }
 
 async function generateFallback(isProduction, port = 3000){
+  const DATA = require(resolve(__dirname, './inset/data.json'));
+  if(!DATA.createFallbackImage) Promise.resolve();
+
   const filePath = isProduction ? 'dist/remote' : 'dist/local';
   const inset = JSON.parse(fs.readFileSync(`${filePath}/inset.json`, 'utf8'));
   const fallbackPath = isProduction ? destinations(DATA.slug).remote.fallbackUrl : destinations().local.fallbackUrl;
@@ -96,7 +98,10 @@ if (argv.buildInset) {
   generateInset(argv.production).then(() => console.log(colors.green('Inset build complete.')));
 }
 
-if (argv.buildFallback && DATA.createFallbackImage) {
+if (argv.buildFallback) {
+  const DATA = require(resolve(__dirname, './inset/data.json'));
+  if(!DATA.createFallbackImage) return;
+  
   console.log(colors.blue('Preparing fallback image...'));
   //start up a fresh http server
   const { spawn } = require('child_process');
@@ -106,7 +111,7 @@ if (argv.buildFallback && DATA.createFallbackImage) {
   });
   server.stdout.on('data', (data) => {
     if(data.toString() === 'Starting up http-server, serving ./\nAvailable on:\n') {
-      generateFallback(argv.production,'3001').then(() => {
+      generateFallback(argv.production, '3001').then(() => {
         server.kill();
         console.log(colors.green('Fallback image preparation complete.'));
       });
@@ -121,23 +126,17 @@ if (argv.watch) {
 
   watcher
     .on('add', (path) => console.log(colors.blue(`File ${path} has been added.`)))
-    .on('ready', () => {
+    .on('ready', () => {      
       generateInset().then(() => {
         console.log(colors.green('Initial build complete.'))
         console.log(colors.blue('Watching for changes.'))
       });
     })
     .on('change', () => {
-      generateInset()
-        .then(() => {
-          console.log(colors.green('Rebuild complete.'));
-          if (DATA.createFallbackImage) {
-            return generateFallback();
-          } else {
-            return Promise.resolve();
-          }
-        })
-        .then(() => console.log(colors.green('Fallback screenshot created.')));
+      generateInset().then(() => {
+        console.log(colors.green('Rebuild complete.'));          
+        generateFallback().then(() => console.log(colors.green('Fallback screenshot created.')));
+      });
     });
 }
 
