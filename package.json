@@ -4,7 +4,7 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "start": "npm run clean:local && http-server -p 3000 & npm run watch",
+    "start": "npm run clean:local && http-server -c-1 -p 0 & npm run watch",
     "watch": "npm run watch:inset & npm run watch:app",
     "watch:inset": "node index.js --watch",
     "watch:app": "webpack --config webpack.dev.js --watch --progress --colors",

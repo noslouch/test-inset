@@ -35,7 +35,7 @@
 
     What this does:
 
-    - starts `http-server` on port `3000`
+    - starts `http-server` on port `8080` (or another port, if 8080 is unavailable)
     - watch `src/` and `inset/` for changes
     - builds `src/` to `dist/local/*`
     - builds `inset/` to `dist/local/inset.json`
@@ -44,8 +44,8 @@
 
 Once you’re running `npm start`, preview your inset at the urls below:
 
-- http://127.0.0.1:3000/article-standard.html
-- http://127.0.0.1:3000/article-immersive.html
+- http://127.0.0.1:8080/article-standard.html
+- http://127.0.0.1:8080/article-immersive.html
 
 ## Installing libraries
 
