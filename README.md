@@ -169,6 +169,10 @@ To get it in the article:
 3. In Methode, add the image below the inset.
     - Check "Mobile app" but uncheck "Web".
 
+Examples: 
+
+- [U.S. Government Deficit Grew 17% in Fiscal 2018](https://www.wsj.com/articles/u-s-government-debt-rises-17-in-fiscal-2018-1539626598)
+
 ### 2. Add a link to a standalone page
 
 Link out to a separate page (for the app only). This will make it behave like a Template Chameleon embed.
