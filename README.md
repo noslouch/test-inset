@@ -190,7 +190,7 @@ Not ideal, but if the content isn't worth clicking through to a separate page fo
 
 ## Tracking
 
-Integrate tracking (of clicks and other interactions) using this snippet:
+Integrate tracking (of clicks and other interactions) using the snippet below. Be sure to replace `your-slug-here`. 
 
 ```js
 function trackAction(action) {
