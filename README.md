@@ -184,6 +184,10 @@ Link out to a separate page (for the app only). This will make it behave like a 
 4. In Methode, add the settings file below the inset.
     - Check "Mobile app" but uncheck "Web".
 
+Examples:
+
+- [Wages Rise at Fastest Rate in Nearly a Decade as Hiring Jumps](https://www.wsj.com/articles/wages-rise-at-fastest-rate-in-nearly-a-decade-as-hiring-jumps-in-october-1541161920) 
+
 ### 3. Don’t show anything at all
 
 Not ideal, but if the content isn't worth clicking through to a separate page for, and can't be represented with a static image, maybe we don't show it in the app.
