@@ -380,14 +380,16 @@
 
     applyGridClassName();
   </script>
-  <script src="./libs/jquery.min.js"></script>
+  <script src="//cdn.polyfill.io/v2/polyfill.js?features=fetch"></script>
   <script src="./libs/mustache.min.js"></script>
   <script src="./libs/wsj-inset.js"></script>
   <script src="./libs/js/index.js"></script>
   <script>
-    $.getJSON('./dist/local/inset.json', function(json){
-      $('#dynamic-inset').wsjInset(json);
-    });
+    fetch('./dist/local/inset.json')
+      .then(response => response.json())
+      .then(json => {
+        WSJInset(json).appendTo('#dynamic-inset');
+      });
   </script>
   </body>
 </html>
