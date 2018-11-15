@@ -18,9 +18,11 @@ const screenshotDOMElement = require('./utils/screencapture');
 
 JSON.minify = require('node-json-minify');
 
+const defaultSlug = 'change-this-slug-10f9f3d1-993d-4c37-8db0-866dbc762272';
+
 async function generateInset(isProduction){
   const DATA = JSON.parse(await readFileAsync(resolve(__dirname, './inset/data.json'), 'utf8'));
-  
+
   const assets = isProduction ? destinations(DATA.slug).remote : destinations().local;
   const source = await readFileAsync(resolve(__dirname, './inset/template.html'), 'utf8');
   const template = handlebars.compile(source);
@@ -103,7 +105,7 @@ if (argv.buildInset) {
 if (argv.buildFallback) {
   const DATA = JSON.parse(fs.readFileSync('./inset/data.json', 'utf8'));
   if(!DATA.createFallbackImage) return;
-  
+
   console.log(colors.blue('Preparing fallback image...'));
   //start up a fresh http server
   const { spawn } = require('child_process');
@@ -128,7 +130,7 @@ if (argv.watch) {
 
   watcher
     .on('add', (path) => console.log(colors.blue(`File ${path} has been added.`)))
-    .on('ready', () => {      
+    .on('ready', () => {
       generateInset().then(() => {
         console.log(colors.green('Initial build complete.'))
         console.log(colors.blue('Watching for changes.'))
@@ -137,7 +139,7 @@ if (argv.watch) {
     .on('change', () => {
       generateInset()
         .then(() => {
-          console.log(colors.green('Rebuild complete.'));          
+          console.log(colors.green('Rebuild complete.'));
           return generateFallback();
         })
         .then(() => console.log(colors.green('Fallback screenshot created.')))
@@ -149,7 +151,19 @@ if (argv.deploy) {
   const DATA = JSON.parse(fs.readFileSync('./inset/data.json', 'utf8'));
   console.log(colors.blue('Preparing deployment...'));
 
-  if (!DATA.slug) return console.log(colors.red('Please add a slug to `src/config.json`.'));
+  if (!DATA.slug) {
+    return console.log(colors.red(
+`Deployment canceled.
+Please add a slug name and UUID (unique number) in \`inset/data.json\`.
+More info here: https://github.dowjones.net/skunkworks/dice#deploying`
+));
+  } else if (DATA.slug === defaultSlug) {
+    return console.log(colors.red(
+`Deployment canceled.
+Please change the slug name and UUID (unique number) in \`inset/data.json\`.
+More info here: https://github.dowjones.net/skunkworks/dice#deploying`
+));
+  }
 
   // gather files to deploy
   const files = fs.readdirSync('dist/remote');
