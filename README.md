@@ -180,13 +180,30 @@ Link out to a separate page (for the app only). This will make it behave like a 
 1. Generate a standalone URL using the template below by replacing `URL_GOES_HERE` with your inset link.
   ```https://graphics.wsj.com/dynamic-inset-iframer/?url=URL_GOES_HERE```
 2. Create a promo image and upload it to the Whopper. It should be a G size, with the headline text on the image (because the app doesn't show a strap).
-3. Create a new settings file using the [settings file tool](http://cropper.dowjones.net/dev/settings_file_tool/). If you don't add a promo image to the settings file, it will show up in the app as a mysterious gray box.
+3. Create a new settings file using the [settings file tool](http://cropper.dowjones.net/dev/settings_file_tool/). If you don't add a promo image to the settings file, it will show up in the app as a mysterious gray box. The slug should be the story slug with a date, e.g. `fed-jobs-20181207` 
 4. In Methode, add the settings file below the inset.
     - Check "Mobile app" but uncheck "Web".
 
 Examples:
 
 - [Wages Rise at Fastest Rate in Nearly a Decade as Hiring Jumps](https://www.wsj.com/articles/wages-rise-at-fastest-rate-in-nearly-a-decade-as-hiring-jumps-in-october-1541161920) 
+
+#### Example instructions to send a story editor
+
+- Specify whether the graphic is **inline** or **wrap**.
+- You only need to send the slug of the Flash settings file (not `settings.js`).
+
+```
+Graphic preview: http://graphicstools.dowjones.net/preview/?inset=https://wsjnewsgraphics.s3.amazonaws.com/dice/fed-projections-a60e37b7-1d82-4c05-83e5-78f01545c0eb/inset.json&layout=inline
+
+Instructions for Methode:
+
+1. Place dynamic inset after 3rd paragraph as an INLINE graphic:
+https://asset.wsj.net/wsjnewsgraphics/dice/fed-projections-a60e37b7-1d82-4c05-83e5-78f01545c0eb/inset.json
+
+2. Below dynamic inset, add the Flash settings file below. (This allows the graphic to show up on our mobile app.) Then, check "Mobile app" but uncheck "Web".
+Settings file: fed-jobs-20181207
+```
 
 ### 3. Don’t show anything at all
 
