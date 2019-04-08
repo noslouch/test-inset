@@ -1,6 +1,6 @@
 # Changelog
 
-## v2.0.0 (2018-10-23)
+## v2.0.0 (2019-04-08)
 - upgraded to webpack 4
 - multiple webpack config files - common, dev and prod
 - webpack no longer attaches the app to the Window object
