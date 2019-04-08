@@ -68,6 +68,7 @@ async function generateFallback(isProduction, port = 3000){
   if(!DATA.createFallbackImage) return Promise.reject('Fallback option not set');
 
   const filePath = isProduction ? 'dist/remote' : 'dist/local';
+  const fileName = isProduction ? `fallback-${DATA.slug}`: 'fallback';
   const inset = JSON.parse(fs.readFileSync(`${filePath}/inset.json`, 'utf8'));
   const fallbackPath = isProduction ? destinations(DATA.slug).remote.fallbackUrl : destinations().local.fallbackUrl;
 
@@ -76,10 +77,10 @@ async function generateFallback(isProduction, port = 3000){
       const page = await browser.newPage();
       await page.setViewport({width: 1000, height: 600, deviceScaleFactor: 2});
       await page.goto(`http://127.0.0.1:${port}/article-standard.html#wrap`, {waitUntil: 'networkidle2'});
-      await screenshotDOMElement(`${filePath}/fallback.png`,page, '.wsjgraphics');
+      await screenshotDOMElement(`${filePath}/${fileName}.png`, page, '.wsjgraphics');
       await browser.close();
 
-      const fallbackDimensions = sizeOf(`${filePath}/fallback.png`);
+      const fallbackDimensions = sizeOf(`${filePath}/${fileName}.png`);
 
       inset.platforms.push('mobile');
       inset.alt = {

@@ -7,7 +7,7 @@ const destinations = (slug) => ({
   remote: {
     cssUrl: `https://asset.wsj.net/wsjnewsgraphics/dice/${slug}/app.min.css`,
     jsUrl: `https://asset.wsj.net/wsjnewsgraphics/dice/${slug}/app.min.js`,
-    fallbackUrl: `https://asset.wsj.net/wsjnewsgraphics/dice/${slug}/fallback.png`
+    fallbackUrl: `https://asset.wsj.net/wsjnewsgraphics/dice/${slug}/fallback-${slug}.png`
   }
 });
 
