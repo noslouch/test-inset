@@ -1,7 +1,7 @@
 # Changelog
 
 ## v2.0.0 (2019-04-08)
-- upgraded to webpack 4
+- upgraded to webpack 4, Babel 7
 - multiple webpack config files - common, dev and prod
 - webpack no longer attaches the app to the Window object
 - app.js is auto executing; inset template doesn't use whenAvailable anymore
