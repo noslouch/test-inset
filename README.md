@@ -35,7 +35,7 @@
 
     What this does:
 
-    - starts `http-server` on port `3000`
+    - starts `http-server` on port `8080` (or another port, if 8080 is unavailable)
     - watch `src/` and `inset/` for changes
     - builds `src/` to `dist/local/*`
     - builds `inset/` to `dist/local/inset.json`
@@ -44,8 +44,8 @@
 
 Once you’re running `npm start`, preview your inset at the urls below:
 
-- http://127.0.0.1:3000/article-standard.html
-- http://127.0.0.1:3000/article-immersive.html
+- http://127.0.0.1:8080/article-standard.html
+- http://127.0.0.1:8080/article-immersive.html
 
 ## Installing libraries
 
@@ -120,13 +120,13 @@ import * as WSJCharts from 'genericharts';
 
 ## Deploying
 
-Before deploying, make sure that:
+Before deploying:
 
-- `slug` has been set in `inset/data.json`
-  - the format should be `project-name-uuid` -> `foobar-9c4341b7-f216-49fc-8fed-4aca7d6ad0c1`
-  - grab a uuid [here](https://www.uuidgenerator.net/)
-- preview pages look ok
-- code is fully pushed to GitHub
+- Make sure that `slug` has been set in `inset/data.json`
+  - The format should be `project-name-uuid` (for example, `brexit-explainer-eb0b4bea-c339-4c99-9682-487f76c2af0c`)
+  - We add this UUID (universally unique identifier) to make sure slugs don't get repeated. Generate one at [uuidgenerator.net](https://www.uuidgenerator.net/)
+- Check that preview pages look ok
+- Push latest code to a GitHub repo
 
 To deploy your inset to S3, run this:
 
