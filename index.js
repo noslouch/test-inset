@@ -12,6 +12,8 @@ const request = require('superagent');
 const prettyjson = require('prettyjson');
 const puppeteer = require('puppeteer');
 const sizeOf = require('image-size');
+const { stripIndents } = require('common-tags')
+const package = require('./package.json');
 
 const destinations = require('./utils/destinations');
 const screenshotDOMElement = require('./utils/screencapture');
@@ -29,7 +31,20 @@ async function generateInset(isProduction){
   const data = Object.assign({}, DATA, assets);
   const html = template(data);
 
-  const inset = JSON.parse('{"status":"OK","type":"InsetDynamic","platforms":["desktop"],"serverside":{"data":{"data":{}},"template":{}}}');
+  const inset = {
+    "status": "OK",
+    "dice-version": package.version,
+    "type": "InsetDynamic",
+    "platforms": [
+      "desktop"
+    ],
+    "serverside": {
+      "data": {
+        "data": {}
+      },
+      "template": {}
+    }
+  };
 
   inset.serverside.template.template = minify(html, {
     removeComments: true,
@@ -153,16 +168,16 @@ if (argv.deploy) {
 
   if (!DATA.slug) {
     return console.log(colors.red(
-`Deployment canceled.
-Please add a slug name and UUID (unique number) in \`inset/data.json\`.
-More info here: https://github.dowjones.net/skunkworks/dice#deploying`
-));
+      stripIndents`Deployment canceled.
+      Please add a slug name and UUID (unique number) in \`inset/data.json\`.
+      More info here: https://github.dowjones.net/skunkworks/dice#deploying`
+    ));
   } else if (DATA.slug === defaultSlug) {
     return console.log(colors.red(
-`Deployment canceled.
-Please change the slug name and UUID (unique number) in \`inset/data.json\`.
-More info here: https://github.dowjones.net/skunkworks/dice#deploying`
-));
+      stripIndents`Deployment canceled.
+      Please change the slug name and UUID (unique number) in \`inset/data.json\`.
+      More info here: https://github.dowjones.net/skunkworks/dice#deploying`
+    ));
   }
 
   // gather files to deploy
