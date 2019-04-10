@@ -173,15 +173,15 @@ if (argv.deploy) {
       Please add a slug name and UUID (unique number) in \`inset/data.json\`.
       More info here: https://github.dowjones.net/skunkworks/dice#deploying`
     ));
-  } else if (DATA.slug === defaultSlug) {
+  }
+  
+  if (DATA.slug === defaultSlug) {
     return console.log(colors.red(
       stripIndents`Deployment canceled.
       Please change the slug name and UUID (unique number) in \`inset/data.json\`.
       More info here: https://github.dowjones.net/skunkworks/dice#deploying`
     ));
   }
-
-  if (DATA.slug = "blah-10f9f3d1-993d-4c37-8db0-866dbc762272") return console.log(colors.red('Please create a unique slug in `inset/data.json`'));
 
   // gather files to deploy
   const files = fs.readdirSync('dist/remote');
