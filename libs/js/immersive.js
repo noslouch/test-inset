@@ -8,16 +8,23 @@
     window.location.href = window.location.href + '#inline';
   } else {
     $select.value = window.location.hash.substr(1);
-
-    // run changeLayout()
-    var event = new Event('change');
-    $select.dispatchEvent(event);
   }
+  // run changeLayout()
+  var event = new Event('change');
+  $select.dispatchEvent(event);
 
   function changeLayout(e) {
     e.preventDefault();
 
-    $inset.classList.remove('inline', 'wrap', 'margin', 'offset', 'bleed');
+    $inset.classList.remove(
+      'bleed',
+      'edgetoedge',
+      'inline',
+      'margin',
+      'offset',
+      'wrap'
+    );
+
     $inset.classList.add(this.value);
 
     modifyUrl();
