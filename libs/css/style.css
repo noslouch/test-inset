@@ -1,20 +1,3 @@
-.column {
-  float: none;
-  margin: 0 auto;
-}
-
-@media (min-width: 1301px) {
-  .column {
-    width: 720px;
-  }
-}
-
-@media (max-width: 1300px) and (min-width: 981px) {
-  .column {
-    width: 560px;
-  }
-}
-
 .product-header {
   -ms-flex-align: center;
   -ms-flex-pack: justify;
@@ -35,7 +18,7 @@
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 11;
+  z-index: 100;
 }
 
 .product-header__name {
@@ -87,10 +70,3 @@
   height: 31px;
 }
 
-body.standard .inset-layout-selection a:first-of-type {
-  display: none;
-}
-
-body.immersive .inset-layout-selection a:last-of-type {
-  display: none;
-}
